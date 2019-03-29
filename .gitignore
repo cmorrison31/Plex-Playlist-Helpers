@@ -1,0 +1,8 @@
+# Pycharm files and directories
+.idea/
+
+# Python temporary files and directories
+__pycache__/
+venv/
+
+config.ini
