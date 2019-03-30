@@ -35,11 +35,11 @@ Create a file called `config.ini` in the source directory with the following
 information:
 
 ```text
-['DEFAULT']
+[DEFAULT]
 username = 'your user name'
 password = 'your password'
-servername = 'server name'
-playlist_name = 'playlist name'
+server name = 'server name'
+playlist name = 'playlist name'
 ```
 
 Replace the fields above with your information then run the script. That's it!
