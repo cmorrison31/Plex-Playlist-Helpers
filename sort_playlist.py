@@ -37,6 +37,7 @@ def get_various_artists_album_sort_key(album):
 
 def get_track_sort_key(track, album):
     key = ''
+    number_of_tracks = max(len(album.tracks()), 1)
 
     if track.grandparentTitle.startswith('Various'):
         key += get_various_artists_album_sort_key(album)
@@ -49,7 +50,7 @@ def get_track_sort_key(track, album):
     key += album.titleSort.lower()
 
     if track.index is not None:
-        key += str(track.index)
+        key += '{:{width}.0f}'.format(int(track.index), width=number_of_tracks)
 
     key += track.titleSort.lower()
 
@@ -62,10 +63,10 @@ def main():
     account = MyPlexAccount(config.get('DEFAULT', 'username'),
                             config.get('DEFAULT', 'password'))
 
-    plex = account.resource(config.get('DEFAULT', 'servername')).connect()
+    plex = account.resource(config.get('DEFAULT', 'server name')).connect()
 
     albums = {a.key: a for a in plex.library.section('Music').albums()}
-    playlist = plex.playlist(config.get('DEFAULT', 'playlist'))
+    playlist = plex.playlist(config.get('DEFAULT', 'playlist name'))
     items = playlist.items()
 
     sort_structure = []
