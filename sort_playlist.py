@@ -50,7 +50,8 @@ def get_track_sort_key(track, album):
     key += album.titleSort.lower()
 
     if track.index is not None:
-        key += '{:0{width}.0f}'.format(int(track.index), width=number_of_tracks)
+        key += '{:0{width}.0f}'.format(int(track.index),
+                                       width=len(str(number_of_tracks)))
 
     key += track.titleSort.lower()
 
