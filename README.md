@@ -1,6 +1,8 @@
 # Plex Playlist Sorter
-Plex playlist sorter is a simple Python script that sorts a given plex 
-playlist. Sorting is done with lower case strings in the following sequence:
+Plex playlist helper is a simple Python script collection that helps manage 
+Plex playlists. 
+
+Sorting is done with lower case strings in the following sequence:
 
 1. artist name
 2. album year
@@ -36,10 +38,14 @@ information:
 
 ```text
 [DEFAULT]
-username = 'your user name'
-password = 'your password'
-server name = 'server name'
-playlist name = 'playlist name'
+username = your user name
+password = your password
+server name = server name
+user = user name
+playlist name = playlist name
 ```
+
+`username` is the admin account and `user` is the user you want to copy a 
+playlist to (and is only required for copying, not sorting, playlists).
 
 Replace the fields above with your information then run the script. That's it!
