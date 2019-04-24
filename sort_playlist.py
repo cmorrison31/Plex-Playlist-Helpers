@@ -9,7 +9,8 @@ def load_config(configuration_file_path='config.ini'):
 
     # Set default values
     configuration['DEFAULT'] = \
-        {'username': '', 'password': '', 'server': '', 'playlist': ''}
+        {'username': '', 'password': '', 'server': '', 'playlist': '',
+         'user': ''}
 
     configuration.read(configuration_file_path)
 
