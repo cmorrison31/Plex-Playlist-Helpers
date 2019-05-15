@@ -39,6 +39,11 @@ def get_various_artists_album_sort_key(album):
 def get_track_sort_key(track, album):
     key = ''
     number_of_tracks = max(len(album.tracks()), 1)
+    number_of_discs = 1
+
+    for t in album.tracks():
+        if t.parentIndex is not None:
+            number_of_discs = max(int(t.parentIndex), number_of_discs)
 
     if track.grandparentTitle.startswith('Various'):
         key += get_various_artists_album_sort_key(album)
@@ -49,6 +54,10 @@ def get_track_sort_key(track, album):
         key += str(album.year)
 
     key += album.titleSort.lower()
+
+    if track.parentIndex is not None:
+        key += '{:0{width}.0f}'.format(int(track.parentIndex),
+                                       width=len(str(number_of_discs)))
 
     if track.index is not None:
         key += '{:0{width}.0f}'.format(int(track.index),
