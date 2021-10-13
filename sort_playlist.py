@@ -22,7 +22,11 @@ def get_various_artists_album_sort_key(album):
     album_artists = set()
 
     for track in album.tracks():
-        sanitized = track.originalTitle.lower()
+        if track.originalTitle is not None:
+            sanitized = track.originalTitle.lower()
+        else:
+            sanitized = track.titleSort.lower()
+
         sanitized = re.sub(r'/', ', ', sanitized)
         sanitized = re.sub(r'feat', ', ', sanitized)
         sanitized = re.sub(r'\.', '', sanitized)
