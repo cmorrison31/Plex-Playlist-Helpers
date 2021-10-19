@@ -41,6 +41,10 @@ def get_various_artists_album_sort_key(album):
     return key
 
 
+def get_track_sort_key_length(track):
+    return track.duration
+
+
 def get_track_sort_key(track, album):
     key = ''
     number_of_tracks = max(len(album.tracks()), 1)
@@ -82,14 +86,17 @@ def main():
     admin_server = account.resource(config.get('DEFAULT',
                                                'server name')).connect()
 
-    user = account.user(config.get('DEFAULT', 'user'))
+    if config.get('DEFAULT', 'user') == account.username:
+        user_server = admin_server
+    else:
+        user = account.user(config.get('DEFAULT', 'user'))
 
-    # Get the token for the machine.
-    token = user.get_token(admin_server.machineIdentifier)
+        # Get the token for the machine.
+        token = user.get_token(admin_server.machineIdentifier)
 
-    # Get the user server. We access the base URL by requesting a URL for a
-    # blank key.
-    user_server = PlexServer(admin_server.url(''), token=token)
+        # Get the user server. We access the base URL by requesting a URL for a
+        # blank key.
+        user_server = PlexServer(admin_server.url(''), token=token)
 
     albums = {a.key: a for a in user_server.library.section('Music').albums()}
     playlist = user_server.playlist(config.get('DEFAULT', 'playlist name'))
@@ -101,6 +108,7 @@ def main():
         album = albums[track.parentKey]
 
         key = get_track_sort_key(track, album)
+        # key = get_track_sort_key_length(track)
 
         sort_structure.append((key, track))
 
